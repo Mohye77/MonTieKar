@@ -55,7 +55,7 @@ function initMap() {
     }
 }
 
-function ShowSquares(data) {
+function ShowSquares(data, total) {
     if (data && data.MappedCriteria && data.MappedCriteria.length > 0) {
         var goodSquare = '#33dd33';
         var acceptableSquare = '#dd8833';
@@ -63,8 +63,15 @@ function ShowSquares(data) {
 
         for (var i = 0; i < data.MappedCriteria.length; i++) {
             var rectangle = squares[data.MappedCriteria[i].Coords.Longitude][data.MappedCriteria[i].Coords.Longitude];
-            if (true)//data.MappedCriteria[i].CriteriaNumber )
+
+            var criteriaRatio = data.MappedCriteria[i].CriteriaNumber / total;
+            if (criteriaRatio <= 0.3) {
+                rectangle.fillColor = badSquare;
+            } else if (criteriaRatio <= 0.6) {
+                rectangle.fillColor = acceptableSquare;
+            } else {
                 rectangle.fillColor = goodSquare;
+            }
         }
     } else {
         console.log('No criteria to display');
