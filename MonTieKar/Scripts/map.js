@@ -53,25 +53,31 @@ function initMap() {
                 });
         }
     }
+
+
 }
 
 function ShowSquares(data, total) {
-    if (data && data.MappedCriteria && data.MappedCriteria.length > 0) {
+    if (data && data.mappedCriteria && data.mappedCriteria.length > 0) {
         var goodSquare = '#33dd33';
         var acceptableSquare = '#dd8833';
         var badSquare = '#dd3333';
 
-        for (var i = 0; i < data.MappedCriteria.length; i++) {
-            var rectangle = squares[data.MappedCriteria[i].Coords.Longitude][data.MappedCriteria[i].Coords.Longitude];
+        for (var i = 0; i < data.mappedCriteria.length; i++) {
+            var rectangle = squares[data.mappedCriteria[i].coords.longitude][data.mappedCriteria[i].coords.latitude];
 
-            var criteriaRatio = data.MappedCriteria[i].CriteriaNumber / data.MappedCriteria.length;
-            if (criteriaRatio <= 0.3) {
-                rectangle.fillColor = badSquare;
-            } else if (criteriaRatio <= 0.6) {
-                rectangle.fillColor = acceptableSquare;
+            var matchedCriteriaCount = data.mappedCriteria[i].criteriaNumber;
+
+            
+            if (matchedCriteriaCount <= 1) {
+                var fillColor = badSquare;
+            } else if (matchedCriteriaCount < 4) {
+                var fillColor = acceptableSquare;
             } else {
-                rectangle.fillColor = goodSquare;
+                var fillColor = goodSquare;
             }
+
+            rectangle.setOptions({ fillColor: fillColor });
         }
     } else {
         console.log('No criteria to display');
