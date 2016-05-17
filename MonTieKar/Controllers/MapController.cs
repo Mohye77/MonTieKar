@@ -80,6 +80,13 @@ namespace MonTieKar.Controllers
                             count = data.TreeCount;
                             break;
 
+                        case "metro":
+                            count = data.MetroStationCount;
+                            break;
+                        case "wifi":
+                            count = data.WifiCount;
+                            break;
+
                         default:
                             continue;
                     }
@@ -161,6 +168,11 @@ namespace MonTieKar.Controllers
         public int? TreeCount { get; set; }
 
         public int? CinemaCount { get; set; }
+
+        public int? WifiCount { get; set; }
+
+        public int? MetroStationCount { get; set; }
+
 
         [JsonProperty(PropertyName = "id")]
         public Guid Id { get; set; }
