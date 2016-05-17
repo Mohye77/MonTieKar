@@ -2,10 +2,27 @@
 <div class="row">
     <div class="col-md-12">
         <h1>MonTieKar</h1>
-        <p class="lead">Classe tes critères : </p>
-        <p><button class="btn btn-primary btn-lg">Afficher</button></p>
+        <p class="lead">Donnes TES CRITERES LAAA ! </p>
     </div>
 </div>
+<div class="row" data-bind="foreach: Filters">
+    <div class="col-md-4">
+        <b data-bind="text: Name"></b>
+        <select data-bind="value: Operator">
+            <option value="lt">&lt;</option>
+            <option value="eq">&equals;</option>
+            <option value="gt">&gt;</option>
+        </select>
+        <input type="number" data-bind="value: Score" />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-primary btn-lg" data-bind="click: GetData">VAZY TARBA !</button>
+    </div>
+</div>
+<br />
 <div class="row">
     <div class="col-md-12">
         <div id="map" style="height:500px;"></div>

@@ -18,22 +18,34 @@ function HomeViewModel(app, dataModel) {
 
     self.Filters = ko.observableArray(filters);
 
+    self.GetTotalScores = function () {
+        var totalScores = 0;
+        $.each(self.Filters(), function (index, filter) {
+            totalScores += filter.Score();
+        });
+        return totalScores;
+    };
+
+    self.GetData = function () {
+        // Make a call to the protected Web API by passing in a Bearer Authorization Header
+        $.ajax({
+            method: 'POST',
+            url: app.dataModel.mapUrl,
+            data: ko.toJSON({ Filters: self.Filters }),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            headers: {
+                'Authorization': 'Bearer ' + app.dataModel.getAccessToken()
+            },
+            success: function (data) {
+                ShowSquares(data, self.GetTotalScores());
+            }
+        });
+    };
+
     Sammy(function () {
         this.get('#home', function () {
-            // Make a call to the protected Web API by passing in a Bearer Authorization Header
-            $.ajax({
-                method: 'POST',
-                url: app.dataModel.mapUrl,
-                data: ko.toJSON({ Filters: self.Filters }),
-                contentType: "application/json; charset=utf-8",
-                dataType: 'json',
-                headers: {
-                    'Authorization': 'Bearer ' + app.dataModel.getAccessToken()
-                },
-                success: function (data) {
-                    ShowSquares(data);
-                }
-            });
+            //self.GetData();
         });
         this.get('/', function () { this.app.runRoute('get', '#home') });
     });
