@@ -9,7 +9,7 @@
 <div class="row" data-bind="foreach: Filters">
     <div class="col-md-4">
         <img data-bind="attr: {src: 'Content/'+Name()+'.png' }" height="25" />
-        <b style="text-transform: capitalize;" data-bind="text: Name"></b>
+        <b style="text-transform: capitalize;" data-bind="text: DisplayName"></b>
         <select data-bind="value: Operator">
             <option value="lt">&lt;</option>
             <option value="eq">&equals;</option>
