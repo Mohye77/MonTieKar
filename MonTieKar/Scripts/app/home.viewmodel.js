@@ -1,8 +1,8 @@
 ﻿function FilterModel(name, operator, score) {
     var self = this;
     self.Name = ko.observable(name || '');
-    self.Operator = ko.observable(operator || 'eq');
-    self.Score = ko.observable(score || 5);
+    self.Operator = ko.observable(operator || 'gt');
+    self.Score = ko.observable(score || 0);
 
     return self;
 }
@@ -14,7 +14,9 @@ function HomeViewModel(app, dataModel) {
         new FilterModel('cafe'),
         new FilterModel('velib'),
         new FilterModel('cine'),
-        new FilterModel('arbre')
+        new FilterModel('arbre'),
+        new FilterModel('wifi'),
+        new FilterModel('metro')
     ];
 
     self.Filters = ko.observableArray(filters);
@@ -36,7 +38,7 @@ function HomeViewModel(app, dataModel) {
             data: "{ Filters: " + ko.toJSON(self.Filters) +"}",
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
-           
+
             success: function (data) {
                 ShowSquares(data, self.GetTotalScores());
                 $('#loader').hide();
