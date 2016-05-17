@@ -32,12 +32,10 @@ function HomeViewModel(app, dataModel) {
         $.ajax({
             method: 'POST',
             url: app.dataModel.mapUrl,
-            data: ko.toJSON({ Filters: ko.toJSON(self.Filters) }),
+            data:{ Filters: ko.toJSON(self.Filters) },
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
-            headers: {
-                'Authorization': 'Bearer ' + app.dataModel.getAccessToken()
-            },
+           
             success: function (data) {
                 ShowSquares(data, self.GetTotalScores());
             }

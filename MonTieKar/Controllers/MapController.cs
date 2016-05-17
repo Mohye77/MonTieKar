@@ -7,39 +7,39 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using Microsoft.Azure.Documents.Client;
+using Newtonsoft.Json;
 
 namespace MonTieKar.Controllers
 {
-    [Authorize]
+ 
     public class MapController : ApiController
     {
-        private ApplicationUserManager _userManager;
+        private const string _url = "https://pariscube.documents.azure.com:443";
+        private DocumentClient _client;
+        private Uri _collectionUri;
 
         public MapController()
         {
+            var primaryKey = "0rGKNEJSUq3sDhbwXQQmc4Db7ra7KULweE7HWSUYdKM1RNzBIKv3ogz42WODZ7G0Wz9LlLy16dFvtMhYKyqDOA==";
+
+
+            _client = new DocumentClient(new Uri(_url), primaryKey);
+
+            _collectionUri = UriFactory.CreateDocumentCollectionUri("pariscubedata", "data");
+
         }
 
-        public MapController(ApplicationUserManager userManager)
-        {
-            UserManager = userManager;
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
 
         // Post api/Map
         public MapViewModel Post(PostRequest request)
         {
             //TODO: get criterias
+            var queryOptions = new FeedOptions { MaxItemCount = -1 };
+
+
+            var serverData =
+            _client.CreateDocumentQuery<ZoneData>(_collectionUri, "SELECT * FROM data", queryOptions).ToList();
 
             // Map them
             return new MapViewModel
@@ -66,5 +66,26 @@ namespace MonTieKar.Controllers
         public string Name { get; set; }
         public string Operator { get; set; }
         public int Score { get; set; }
+    }
+
+
+    public class ZoneData
+    {
+        public int LongitudeIndex { get; set; }
+
+        public int LatitudeIndex { get; set; }
+
+
+        public int? VelibCount { get; set; }
+
+        public int? CoffeeShops { get; set; }
+
+
+        public int? TreeCount { get; set; }
+
+        public int? CinemaCount { get; set; }
+
+        [JsonProperty(PropertyName = "id")]
+        public Guid Id { get; set; }
     }
 }
