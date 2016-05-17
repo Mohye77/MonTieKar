@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
@@ -7,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("MonTieKar")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Muhammad Rehan Saeed")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MonTieKar")]
-[assembly: AssemblyCopyright("Copyright © Muhammad Rehan Saeed 2015")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("86a6808d-0066-44e0-a1d5-be5d9ccb88d0")]
+[assembly: Guid("cf3a5007-6043-446f-b601-2ee4db6e75dc")]
 
 // Version information for an assembly consists of the following four values:
 //
