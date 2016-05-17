@@ -32,7 +32,7 @@ function HomeViewModel(app, dataModel) {
         $.ajax({
             method: 'POST',
             url: app.dataModel.mapUrl,
-            data: ko.toJSON({ Filters: ko.toJSON(self.Filters) }),
+            data: "{ Filters: " + ko.toJSON(self.Filters) +"}",
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             headers: {
@@ -42,6 +42,7 @@ function HomeViewModel(app, dataModel) {
                 ShowSquares(data, self.GetTotalScores());
             }
         });
+        return false;
     };
 
     Sammy(function () {
