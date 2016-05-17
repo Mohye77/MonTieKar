@@ -7,12 +7,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using Microsoft.Ajax.Utilities;
 using Microsoft.Azure.Documents.Client;
 using Newtonsoft.Json;
 
 namespace MonTieKar.Controllers
 {
- 
+
     public class MapController : ApiController
     {
         private const string _url = "https://pariscube.documents.azure.com:443";
@@ -39,21 +40,97 @@ namespace MonTieKar.Controllers
 
 
             var serverData =
-            _client.CreateDocumentQuery<ZoneData>(_collectionUri, "SELECT * FROM data", queryOptions).ToList();
+                _client.CreateDocumentQuery<ZoneData>(_collectionUri, "SELECT * FROM data", queryOptions).ToList();
+
+
+            var mappedCriteriaList = new List<MappedCriteria>();
+
+
+            foreach (var data in serverData)
+            {
+                var result = new MappedCriteria()
+                {
+                    Coords = new Coordinates()
+                    {
+                        Latitude = data.LatitudeIndex,
+                        Longitude = data.LongitudeIndex
+                    },
+                    CriteriaNumber = 0
+
+                };
+
+
+                foreach (var filter in request.Filters)
+                {
+                    int? count = null;
+
+                    switch (filter.Name)
+                    {
+                        case "cafe":
+                            count = data.CoffeeShops;
+                            break;
+
+                        case "velib":
+                            count = data.VelibCount;
+                            break;
+                        case "cine":
+                            count = data.CinemaCount;
+                            break;
+                        case "arbre":
+                            count = data.TreeCount;
+                            break;
+
+                        default:
+                            continue;
+                    }
+
+                    if (count == null)
+                    {
+                        continue;
+
+                    }
+
+                    switch (filter.Operator)
+                    {
+                        case "eq":
+                            if (count == filter.Score)
+                            {
+                                result.CriteriaNumber++;
+                            }
+
+                            break;
+
+                        case "lt":
+                            if (count < filter.Score)
+                            {
+                                result.CriteriaNumber++;
+                            }
+                            break;
+
+                        case "gt":
+                            if (count > filter.Score)
+                            {
+                                result.CriteriaNumber++;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+
+
+                mappedCriteriaList.Add(result);
+            }
+
 
             // Map them
             return new MapViewModel
             {
-                MappedCriteria = new List<MappedCriteria>()
-                {
-                    new MappedCriteria
-                    {
-                        Coords = new Coordinates { Latitude = 0, Longitude = 0 },
-                        CriteriaNumber = 3
-                    }
-                }
+                MappedCriteria = mappedCriteriaList
             };
         }
+
     }
 
     public class PostRequest
