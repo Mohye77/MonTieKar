@@ -41,7 +41,7 @@ function initMap() {
             squares[x][y] =
                 new google.maps.Rectangle({
                     strokeWeight: 0,
-                    fillColor: '#00FF00',
+                    //fillColor: '#00FF00',
                     fillOpacity: 0.3,
                     map: map,
                     bounds: {
@@ -53,18 +53,31 @@ function initMap() {
                 });
         }
     }
+
+
 }
 
-function ShowSquares(data) {
-    if (data && data.MappedCriteria && data.MappedCriteria.length > 0) {
+function ShowSquares(data, total) {
+    if (data && data.mappedCriteria && data.mappedCriteria.length > 0) {
         var goodSquare = '#33dd33';
         var acceptableSquare = '#dd8833';
         var badSquare = '#dd3333';
 
-        for (var i = 0; i < data.MappedCriteria.length; i++) {
-            var rectangle = squares[data.MappedCriteria[i].Coords.Longitude][data.MappedCriteria[i].Coords.Longitude];
-            if (true)//data.MappedCriteria[i].CriteriaNumber )
-                rectangle.fillColor = goodSquare;
+        for (var i = 0; i < data.mappedCriteria.length; i++) {
+            var rectangle = squares[data.mappedCriteria[i].coords.longitude][data.mappedCriteria[i].coords.latitude];
+
+            var matchedCriteriaCount = data.mappedCriteria[i].criteriaNumber;
+
+            
+            if (matchedCriteriaCount <= 1) {
+                var fillColor = badSquare;
+            } else if (matchedCriteriaCount < 4) {
+                var fillColor = acceptableSquare;
+            } else {
+                var fillColor = goodSquare;
+            }
+
+            rectangle.setOptions({ fillColor: fillColor });
         }
     } else {
         console.log('No criteria to display');

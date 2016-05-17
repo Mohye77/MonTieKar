@@ -28,6 +28,7 @@ function HomeViewModel(app, dataModel) {
     };
 
     self.GetData = function () {
+        $('#loader').show();
         // Make a call to the protected Web API by passing in a Bearer Authorization Header
         $.ajax({
             method: 'POST',
@@ -35,11 +36,10 @@ function HomeViewModel(app, dataModel) {
             data: "{ Filters: " + ko.toJSON(self.Filters) +"}",
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
-            headers: {
-                'Authorization': 'Bearer ' + app.dataModel.getAccessToken()
-            },
+           
             success: function (data) {
                 ShowSquares(data, self.GetTotalScores());
+                $('#loader').hide();
             }
         });
         return false;
