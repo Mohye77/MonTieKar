@@ -241,6 +241,7 @@
     <Content Include="Content\cafe.png" />
     <Content Include="Content\cine.png" />
     <Content Include="Content\cube.gif" />
+    <Content Include="Content\logo.png" />
     <Content Include="Content\metro.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\velib.png" />
