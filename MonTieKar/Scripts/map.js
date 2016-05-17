@@ -64,7 +64,7 @@ function ShowSquares(data, total) {
         for (var i = 0; i < data.MappedCriteria.length; i++) {
             var rectangle = squares[data.MappedCriteria[i].Coords.Longitude][data.MappedCriteria[i].Coords.Longitude];
 
-            var criteriaRatio = data.MappedCriteria[i].CriteriaNumber / total;
+            var criteriaRatio = data.MappedCriteria[i].CriteriaNumber / data.MappedCriteria.length;
             if (criteriaRatio <= 0.3) {
                 rectangle.fillColor = badSquare;
             } else if (criteriaRatio <= 0.6) {

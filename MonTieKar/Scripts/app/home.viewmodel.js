@@ -28,6 +28,7 @@ function HomeViewModel(app, dataModel) {
     };
 
     self.GetData = function () {
+        $('#loader').show();
         // Make a call to the protected Web API by passing in a Bearer Authorization Header
         $.ajax({
             method: 'POST',
@@ -40,6 +41,7 @@ function HomeViewModel(app, dataModel) {
             },
             success: function (data) {
                 ShowSquares(data, self.GetTotalScores());
+                $('#loader').hide();
             }
         });
         return false;
