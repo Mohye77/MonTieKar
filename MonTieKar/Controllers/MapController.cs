@@ -36,8 +36,8 @@ namespace MonTieKar.Controllers
             }
         }
 
-        // GET api/Map
-        public MapViewModel Get(GetRequest request)
+        // Post api/Map
+        public MapViewModel Post(PostRequest request)
         {
             //TODO: get criterias
 
@@ -56,7 +56,7 @@ namespace MonTieKar.Controllers
         }
     }
 
-    public class GetRequest
+    public class PostRequest
     {
         public List<Filter> Filters { get; set; }
     }

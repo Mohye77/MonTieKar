@@ -2,6 +2,7 @@
     var self = this;
     // Routes
     self.userInfoUrl = "/api/Me";
+    self.mapUrl = "/api/Map";
     self.siteUrl = "/";
 
     // Route operations
