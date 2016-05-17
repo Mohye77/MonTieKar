@@ -13,7 +13,8 @@ function HomeViewModel(app, dataModel) {
     var filters = [
         new FilterModel('cafe'),
         new FilterModel('velib'),
-        new FilterModel('cine')
+        new FilterModel('cine'),
+        new FilterModel('arbre')
     ];
 
     self.Filters = ko.observableArray(filters);
@@ -31,7 +32,7 @@ function HomeViewModel(app, dataModel) {
         $.ajax({
             method: 'POST',
             url: app.dataModel.mapUrl,
-            data: ko.toJSON({ Filters: self.Filters }),
+            data: ko.toJSON({ Filters: ko.toJSON(self.Filters) }),
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             headers: {
