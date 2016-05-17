@@ -1,11 +1,13 @@
 ﻿var map;
 var squares;
 
-
 function initMap() {
     var geocoder = new google.maps.Geocoder();
     var location = "Paris, France";
-
+    var LatStart = 48.901736;
+    var LongStart = 2.227392;
+    var LongDelta = 0.012085;
+    var LatDelta = -0.0041787;
     map = new google.maps.Map(document.getElementById('map'), {});
 
     geocoder.geocode({ 'address': location }, function (results, status) {
@@ -33,32 +35,38 @@ function initMap() {
     //});
 
     squares = [];
-    var LatStart = 48.901736;
-    var LongStart = 2.227392;
-    var LongDelta = 0.012085;
-    var LatDelta = -0.0041787;
     for (var x = 0; x < 20; x++) {
+        squares[x] = new Array(20);
         for (var y = 0; y < 20; y++) {
-            squares.push(new google.maps.Rectangle({
-                strokeWeight: 0,
-                fillColor: '#00FF00',
-                fillOpacity: 0.3,
-                map: map,
-                bounds: {
-                    north: LatStart + x * LatDelta,
-                    south: LatStart + LatDelta * (x + 1),
-                    west: LongStart + y * LongDelta,
-                    east: LongStart + LongDelta * (y + 1)
-                }
-            }));
+            squares[x][y] =
+                new google.maps.Rectangle({
+                    strokeWeight: 0,
+                    fillColor: '#00FF00',
+                    fillOpacity: 0.3,
+                    map: map,
+                    bounds: {
+                        west: LongStart + x * LongDelta,
+                        east: LongStart + LongDelta * (x + 1),
+                        north: LatStart + y * LatDelta,
+                        south: LatStart + LatDelta * (y + 1)
+                    }
+                });
         }
     }
 }
 
 function ShowSquares(data) {
-    for (var i = 0; i < data.MappedCriteria.length; i++) {
-        //data.MappedCriteria[i].Coords.Latitude;
-        //data.MappedCriteria[i].Coords.Longitude;
-        //data.MappedCriteria[i].CriteriaNumber;
+    if (data && data.MappedCriteria && data.MappedCriteria.length > 0) {
+        var goodSquare = '#33dd33';
+        var acceptableSquare = '#dd8833';
+        var badSquare = '#dd3333';
+
+        for (var i = 0; i < data.MappedCriteria.length; i++) {
+            var rectangle = squares[data.MappedCriteria[i].Coords.Longitude][data.MappedCriteria[i].Coords.Longitude];
+            if (true)//data.MappedCriteria[i].CriteriaNumber )
+                rectangle.fillColor = goodSquare;
+        }
+    } else {
+        console.log('No criteria to display');
     }
 }
