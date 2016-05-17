@@ -41,7 +41,7 @@ function initMap() {
             squares[x][y] =
                 new google.maps.Rectangle({
                     strokeWeight: 0,
-                    fillColor: '#00FF00',
+                    //fillColor: '#00FF00',
                     fillOpacity: 0.3,
                     map: map,
                     bounds: {

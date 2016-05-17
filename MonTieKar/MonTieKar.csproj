@@ -233,12 +233,17 @@
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Content\arbre.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cafe.png" />
+    <Content Include="Content\cine.png" />
     <Content Include="Content\cube.gif" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\velib.png" />
+    <Content Include="Content\wifi.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -359,7 +364,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2276</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2276/</IISUrl>
+          <IISUrl>http://localhost:2276</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
